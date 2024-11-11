@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_REPO = 'sanskar2607/practice-11'
+        DOCKER_HUB_REPO = 'simranmehta26/practice-11'
         IMAGE_TAG = "latest"
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git url: 'https://github.com/Scar2603/practice-11.git', branch: 'main'
+                git url: 'https://github.com/simranmehta26/practice-11.git', branch: 'main'
             }
         }
 
@@ -24,7 +24,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t sanskar2607/practice-11:latest -f practice-11/Dockerfile ."
+                    sh "docker build -t simranmehta26/practice-11:latest -f practice-11/Dockerfile ."
                 }
             }
         }
@@ -32,8 +32,8 @@ pipeline {
         stage('Login to Docker Hub') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'sanskar2607', passwordVariable: 'Sanskar@docker19')]) {
-                        sh "echo Sanskar@docker19 | docker login -u sanskar2607 --password-stdin"
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'simranmehta26', passwordVariable: 'simran.docker')]) {
+                        sh "echo simran.docker | docker login -u simranmehta26 --password-stdin"
                     }
                 }
             }
@@ -42,7 +42,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    sh "docker push sanskar2607/practice-11:latest"
+                    sh "docker push simranmehta26/practice-11:latest"
                 }
             }
         }
@@ -51,7 +51,7 @@ pipeline {
     post {
         always {
             script {
-                sh 'docker rmi sanskar2607/practice-11:latest || true'
+                sh 'docker rmi simranmehta26/practice-11:latest || true'
             }
         }
     }
